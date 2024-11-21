@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1671</width>
+    <height>892</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* General Settings */
+QWidget {
+    background-color: #121212; /* Black background */
+    color: #FFFFFF; /* White text */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 12pt;
+}
+
+/* Label */
+QLabel {
+    color: #FFFFFF;
+    font-size: 12pt;
+}
+
+/* Line Edit */
+QLineEdit {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB; /* Purple border */
+    border-radius: 5px;
+    padding: 5px;
+    color: #FFFFFF;
+}
+
+QLineEdit:focus {
+    border: 2px solid #9573DB; /* Lighter purple on focus */
+}
+
+/* Text Edit */
+QTextEdit {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+    padding: 5px;
+    color: #FFFFFF;
+}
+
+QTextEdit:focus {
+    border: 2px solid #9573DB;
+}
+
+/* CheckBox */
+QCheckBox {
+    spacing: 8px;
+    color: #FFFFFF;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    background: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 4px;
+}
+
+QCheckBox::indicator:checked {
+    background: #5C4BDB;
+    border: 2px solid #9573DB;
+}
+
+/* Radio Button */
+QRadioButton {
+    spacing: 8px;
+    color: #FFFFFF;
+}
+
+QRadioButton::indicator {
+    width: 18px;
+    height: 18px;
+    background: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 9px;
+}
+
+QRadioButton::indicator:checked {
+    background: #5C4BDB;
+    border: 2px solid #9573DB;
+}
+
+/* Tab Control */
+QTabWidget::pane {
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+}
+
+QTabBar::tab {
+    background: #1E1E1E;
+    border: 1px solid #5C4BDB;
+    padding: 8px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #FFFFFF;
+    min-width: 100px;
+    text-align: center;
+}
+
+QTabBar::tab:selected {
+    background: #5C4BDB;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+QTabBar::tab:hover {
+    background: #9573DB;
+    color: #FFFFFF;
+}
+
+/* QGraphicsView */
+QGraphicsView {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+}
+
+/* Tree View */
+QTreeView {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+    color: #FFFFFF;
+    padding: 5px;
+}
+
+QTreeView::item {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+    border: none;
+    padding: 5px;
+}
+
+QTreeView::item:hover {
+    background-color: #5C4BDB;
+    color: #FFFFFF;
+}
+
+QTreeView::item:selected {
+    background-color: #9573DB;
+    color: #FFFFFF;
+}
+
+/* Scroll Bars */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background: #1E1E1E;
+    width: 8px;
+    height: 8px;
+    margin: 0px;
+    border: 1px solid #5C4BDB;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background: #5C4BDB;
+    border: none;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {
+    background: #9573DB;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    background: none;
+    border: none;
+    width: 0px;
+    height: 0px;
+}
+
+/* QPushButton */
+QPushButton {
+    background-color: #5C4BDB; /* Purple background */
+    color: #FFFFFF; /* White text */
+    border: 2px solid #5C4BDB; /* Match the background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 8px 15px;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+QPushButton:hover {
+    background-color: #9573DB; /* Lighter purple on hover */
+    border: 2px solid #9573DB;
+    color: #FFFFFF;
+}
+
+QPushButton:pressed {
+    background-color: #4A3B9C; /* Darker purple on press */
+    border: 2px solid #4A3B9C;
+    color: #FFFFFF;
+}
+
+QPushButton:disabled {
+    background-color: #1E1E1E; /* Greyed out for disabled state */
+    border: 2px solid #5C4BDB; /* Slight purple outline to maintain theme */
+    color: #6C6C6C; /* Faded text color */
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1651</width>
+      <height>821</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tabServer">
+     <attribute name="title">
+      <string>Server</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButtonStopServer">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>10</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>STOP</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelServerStatus">
+      <property name="geometry">
+       <rect>
+        <x>18</x>
+        <y>12</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Server: OFF</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEditServerLog">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>67</y>
+        <width>1621</width>
+        <height>691</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButtonRunServer">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>10</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabModelTraining">
+     <attribute name="title">
+      <string>Model Training</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tabStatistics">
+     <attribute name="title">
+      <string>Statistics</string>
+     </attribute>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1671</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
