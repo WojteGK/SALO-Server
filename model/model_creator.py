@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-base_dir = Path(__file__).resolve().parent.parent
+base_dir = Path(__file__).resolve().parent
 unique_path = base_dir / "model" / "SKU"
 
 train_images_dir = os.path.join(unique_path, 'images\\train')
