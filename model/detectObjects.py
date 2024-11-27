@@ -8,7 +8,7 @@ from pathlib import Path
 exp = "exp1" # Ustawienie modelu który został wyćwiczony (exp1/exp2...)
 testImage = "test_2.jpg" # Ustawienie zdjecia do detekcji
 
-base_dir = Path(__file__).resolve().parent.parent
+base_dir = Path(__file__).resolve().parent
 
 model_path = base_dir / "model" / "yolov5" / "runs" / "train" / exp / "weights" / "best.pt"
 model = torch.hub.load( base_dir / "model" / "yolov5" ,'custom', path=model_path, source='local')
