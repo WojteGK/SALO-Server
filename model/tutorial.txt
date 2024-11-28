@@ -15,6 +15,7 @@ Wsadzić tam zdjęcia z bazy która znalezlismy: https://www.kaggle.com/datasets
     
 2. Jeśli katalog yolov5 nie posiada żadnych plikow lub nie istnieje
 Komenda do terminala: git clone https://github.com/ultralytics/yolov5
+Katalog yolov5 powinien znajdowac sie w katalogu "model"
 
 3. Pobierasz biblioteki z req.txt, oraz z yolov5/requirements.txt
 
