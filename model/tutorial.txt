@@ -1,0 +1,34 @@
+1. Stworzyc foldery w katalogu "model" 
+
+                
+              /  test
+        labels - train
+      /       \  val
+    / 
+SKU         
+    \ 
+      \        / test
+        images -  train
+               \ val
+
+Wsadzić tam zdjęcia z bazy która znalezlismy: https://www.kaggle.com/datasets/thedatasith/sku110k-annotations
+    
+2. Jeśli katalog yolov5 nie posiada żadnych plikow lub nie istnieje
+Komenda do terminala: git clone https://github.com/ultralytics/yolov5
+
+3. Pobierasz biblioteki z req.txt, oraz z yolov5/requirements.txt
+
+4. Odpalasz plik model_creator.py
+
+5. Po Stworzeniu pliku yaml odpalasz na swojej sciezce w terminalu:
+
+img -> liczba zdjęć chyba????????
+python train.py --img 300 --batch 8 --epochs 20 --data C:\Users\kusko\PycharmProjects\Model\yolov5\data\sku110k.yaml --weights yolov5s.pt
+
+Posprawdzaj wszystkie sciezki czy sa git.
+
+6. Sprawdzasz model w detectObjects
+exp = "exp1" -> Wpisujesz podejscie (yolov5/runs/detect tam sa podejscia, pokolei sie one robia)
+test_image = "test_1.jpg" -> nazwa zdjecia z testu
+
+7. Odpalasz, Zdjecie z boxami powinno pojawic sie w zapisanych
