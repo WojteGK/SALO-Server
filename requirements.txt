@@ -1,0 +1,8 @@
+pyqt6-tools
+opencv-python
+matplotlib
+numpy
+PyYAML
+#tensorflow
+seaborn
+#torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 #repaste all for gpu support!
