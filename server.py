@@ -112,5 +112,5 @@ def run_server(port=8080):
 
 if __name__ == "__main__":
     # Load YOLO model once at the start
-    model = YOLO("best.pt")  # Replace with your trained YOLO model path
+    model = YOLO("450_detect.pt")  # Replace with your trained YOLO model path
     run_server(port=8080)
