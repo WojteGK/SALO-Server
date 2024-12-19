@@ -4,9 +4,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse
 import json
 from PIL import Image
+import torch
 import numpy as np
-from ultralytics import YOLO
-
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -52,14 +51,15 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         original_image = Image.open(image_path)
         width, height = original_image.size
         resized_image = original_image.resize((450, 450))
+        resized_image_np = np.array(resized_image)
 
         # Run YOLO detection
-        results = model(resized_image)
+        results = model(resized_image_np)
 
         # Extract detections
         detections = []
-        for box in results[0].boxes.xyxy:  # YOLOv8 outputs boxes in xyxy format
-            x_min, y_min, x_max, y_max = box.tolist()
+        for *xyxy, conf, cls in results.xyxy[0]:  # YOLOv5 uses `xyxy` format
+            x_min, y_min, x_max, y_max = xyxy
 
             # Normalize coordinates to percentages of the resized image (450x450)
             x_min_norm = x_min / 450
@@ -111,6 +111,6 @@ def run_server(port=8080):
 
 
 if __name__ == "__main__":
-    # Load YOLO model once at the start
-    model = YOLO("450_detect.pt")  # Replace with your trained YOLO model path
+    # Load YOLOv5 model once at the start
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='runs/train/exp/weights/best.pt')  # Replace with your YOLOv5 model path
     run_server(port=8080)
