@@ -3,6 +3,9 @@ import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse
 import json
+from PIL import Image
+import numpy as np
+from ultralytics import YOLO
 
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
@@ -11,22 +14,25 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         content_type = self.headers['Content-Type']
         post_data = self.rfile.read(content_length)
 
-        # Handle image uploads
         if content_type.startswith("image/"):
+            # Save uploaded image temporarily
             filename = "uploaded_image.jpg"
             with open(filename, "wb") as file:
                 file.write(post_data)
-            self.send_response(200)
-            self.end_headers()
-            self.wfile.write(b"Image received successfully.")
-            print(f"Saved image as {filename}")
-        # Handle text uploads
-        elif content_type == "application/json":
-            parsed_data = json.loads(post_data)
-            print(f"Received JSON: {parsed_data}")
-            self.send_response(200)
-            self.end_headers()
-            self.wfile.write(b"Text received successfully.")
+
+            # Process the image with YOLO
+            try:
+                detections = self.process_image(filename)
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(json.dumps(detections).encode())
+            except Exception as e:
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(f"Error processing image: {str(e)}".encode())
+            finally:
+                # Clean up temporary file
+                os.remove(filename)
         else:
             self.send_response(400)
             self.end_headers()
@@ -36,6 +42,45 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"Server is running. Ready to receive data.")
+
+    def process_image(self, image_path):
+        """
+        Perform object detection on the image using YOLO.
+        Returns a JSON-compatible response with normalized coordinates.
+        """
+        # Load and resize the image
+        original_image = Image.open(image_path)
+        width, height = original_image.size
+        resized_image = original_image.resize((450, 450))
+
+        # Run YOLO detection
+        results = model(resized_image)
+
+        # Extract detections
+        detections = []
+        for box in results[0].boxes.xyxy:  # YOLOv8 outputs boxes in xyxy format
+            x_min, y_min, x_max, y_max = box.tolist()
+
+            # Normalize coordinates to percentages of the resized image (450x450)
+            x_min_norm = x_min / 450
+            y_min_norm = y_min / 450
+            x_max_norm = x_max / 450
+            y_max_norm = y_max / 450
+
+            # Store normalized bounding box in the response
+            detections.append({
+                "x_min": x_min_norm,
+                "y_min": y_min_norm,
+                "x_max": x_max_norm,
+                "y_max": y_max_norm
+            })
+
+        # Return detections
+        return {
+            "original_width": width,
+            "original_height": height,
+            "detections": detections
+        }
 
 
 def get_device_ip():
@@ -66,4 +111,6 @@ def run_server(port=8080):
 
 
 if __name__ == "__main__":
+    # Load YOLO model once at the start
+    model = YOLO("best.pt")  # Replace with your trained YOLO model path
     run_server(port=8080)
