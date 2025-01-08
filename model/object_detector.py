@@ -6,10 +6,7 @@ from pathlib import Path
 def detect_objects(image_path, model_path=None, exp="exp"):
     """
     Wykonuje detekcję obiektów za pomocą YOLOv5.
-
-    :param image_path: Ścieżka do obrazu wejściowego.
     :param model_path: Ścieżka do wag YOLOv5. Jeśli None, używa domyślnej.
-    :param exp: Nazwa eksperymentu YOLOv5.
     :return: Obraz z zaznaczeniami i wyniki detekcji.
     """
     try:
