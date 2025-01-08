@@ -6,10 +6,15 @@ from email.policy import default
 import urllib.parse
 import json
 
+from object_detector import detect_objects
+from feature_extractor import load_feature_extractor, get_embedding
+from group_objects import group_and_visualize_kmeans, find_optimal_clusters_automatically, group_and_label
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+
 import cv2
 from PIL import Image
 import torch
-import numpy as np
 import pandas as pd
 import argparse
 
@@ -75,9 +80,36 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         """
         img = cv2.imread(image_path)
         results = model(img)
+        boxes = results.xyxy[0].cpu().numpy()
 
-        print(results)
-        return results.xyxy[0]
+        embeddings, cropped_images = [], []
+
+        for box in boxes:
+            x1, y1, x2, y2 = map(int, box[:4])  # Współrzędne bounding boxa
+            cropped_img = img[y1:y2, x1:x2]  # Wytnij obiekt z oryginalnego obrazu
+            cropped_images.append(cropped_img)
+
+            obj_embedding = get_embedding(cropped_img, feature_extractor)  # Oblicz embedding
+            embeddings.append(obj_embedding)
+
+        # Normalizacja embeddingów
+        embeddings = StandardScaler().fit_transform(np.array(embeddings))
+
+        # Dynamiczny dobór liczby klastrów (metoda łokcia)
+        optimal_clusters = find_optimal_clusters_automatically(embeddings) #TODO: find optimal number of clusters
+
+        # Klasteryzacja i zapis do folderów
+        # group_and_visualize_kmeans(embeddings, cropped_images, num_clusters=optimal_clusters)
+        labels = group_and_label(embeddings, cropped_images, num_clusters=optimal_clusters)
+
+        wajchens_dict = {}
+
+        for idx, box in enumerate(boxes):
+            x1, y1, x2, y2 = map(int, box[:4])
+            group = labels[idx]
+            wajchens_dict[group] = {"x1": x1,"y1": y1, "x2": x2, "y2": y2}
+
+        return wajchens_dict
 
 
 def get_device_ip():
@@ -120,6 +152,9 @@ if __name__ == "__main__":
     model_fname = [f for f in os.listdir(root) if f.endswith(".pt")][0]
     model_path = os.path.join(root, model_fname)
     model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)
+
+    #RESNET
+    feature_extractor = load_feature_extractor()
 
     #PANDAS
     df = pd.read_csv(os.path.join(root, "data.csv"))
