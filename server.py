@@ -34,9 +34,10 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             for part in parts.iter_parts():
                 if part.get_content_type().startswith("image/"):
                     # Save uploaded image temporarily
-                    filename = "uploaded_image.jpg"
+                    filename = f"{img_count}.bmp"
                     with open(filename, "wb") as file:
                         file.write(part.get_payload(decode=True))
+                    perform_image_counting()
 
                     # Process the image with YOLO
                     try:
