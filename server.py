@@ -107,7 +107,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         for idx, box in enumerate(boxes):
             x1, y1, x2, y2 = map(int, box[:4])
             group = labels[idx]
-            wajchens_dict[group] = {"x1": x1,"y1": y1, "x2": x2, "y2": y2}
+            if group not in wajchens_dict:
+                wajchens_dict[group] = []
+            wajchens_dict[group].append({"x1": x1,"y1": y1, "x2": x2, "y2": y2})
 
         return wajchens_dict
 
