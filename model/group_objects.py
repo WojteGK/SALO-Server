@@ -27,6 +27,7 @@ def group_and_visualize_kmeans(embeddings, cropped_images, output_dir="GROUPS", 
     # Dopasowanie modelu K-Means i przypisanie etykiet.
     kmeans = KMeans(n_clusters=num_clusters, init='k-means++', n_init=10, random_state=42)
     labels = kmeans.fit_predict(embeddings)
+    print(labels)
 
     # Wyświetlenie liczby obiektów w każdej grupie.
     counts = Counter(labels)
@@ -46,3 +47,11 @@ def group_and_visualize_kmeans(embeddings, cropped_images, output_dir="GROUPS", 
                 cv2.imwrite(str(output_image_path), obj_image)
 
     print(f"Wyniki zapisano w folderze: {output_path}")
+
+def group_and_label(embeddings, cropped_images, num_clusters=10):
+    # Dopasowanie modelu K-Means i przypisanie etykiet.
+    kmeans = KMeans(n_clusters=num_clusters, init='k-means++', n_init=10, random_state=42)
+    labels = kmeans.fit_predict(embeddings)
+    print(labels)
+
+    return labels
