@@ -42,7 +42,6 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     filename = f"{os.path.join(root, 'images', str(img_count))}.bmp"
                     with open(filename, "wb") as file:
                         file.write(part.get_payload(decode=True))
-                    perform_image_counting()
 
                     # Process the image with YOLO
                     try:
@@ -50,13 +49,16 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                         self.send_response(200)
                         self.end_headers()
                         self.wfile.write(json.dumps(grouped_detections).encode())
+                        with open(filename.replace(".bmp", ".json"), "w") as file:
+                            json.dump(grouped_detections, file)
                     except Exception as e:
                         self.send_response(500)
                         self.end_headers()
                         self.wfile.write(f"Error processing image: {str(e)}".encode())
-                    finally:
+                    #finally:
                         # Clean up temporary file
-                        os.remove(filename)
+                        # os.remove(filename)
+                    perform_image_counting()
                     return
 
             # If no image part is found, return an error
@@ -106,7 +108,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         for idx, box in enumerate(boxes):
             x1, y1, x2, y2 = map(int, box[:4])
-            group = labels[idx]
+            group = int(labels[idx])
             if group not in wajchens_dict:
                 wajchens_dict[group] = []
             wajchens_dict[group].append({"x1": x1,"y1": y1, "x2": x2, "y2": y2})
@@ -126,7 +128,6 @@ def get_device_ip():
     finally:
         s.close()
     return ip
-
 
 def run_server(port=8080):
     ip = get_device_ip()
