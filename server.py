@@ -1,3 +1,4 @@
+import csv
 import os
 import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -23,52 +24,89 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_type = self.headers['Content-Type']
 
-        # Check if it's a multipart form data request
-        if content_type.startswith("multipart/form-data"):
-            # Parse multipart data
-            boundary = content_type.split("boundary=")[1].encode()
+        if self.path == '/assignments':
             content_length = int(self.headers['Content-Length'])
             body = self.rfile.read(content_length)
 
-            # Use BytesParser to extract file content
-            parts = BytesParser(policy=default).parsebytes(
-                b"Content-Type: " + content_type.encode() + b"\r\n\r\n" + body
-            )
+            try:
+                # Parse JSON data
+                data = json.loads(body)
 
-            # Find the file part
-            for part in parts.iter_parts():
-                if part.get_content_type().startswith("image/"):
-                    # Save uploaded image temporarily
-                    filename = f"{os.path.join(root, 'images', str(img_count))}.bmp"
-                    with open(filename, "wb") as file:
-                        file.write(part.get_payload(decode=True))
+                print(data)
 
-                    # Process the image with YOLO
-                    try:
-                        grouped_detections = self.process_image(filename)
-                        self.send_response(200)
-                        self.end_headers()
-                        self.wfile.write(json.dumps(grouped_detections).encode())
-                        with open(filename.replace(".bmp", ".json"), "w") as file:
-                            json.dump(grouped_detections, file)
-                    except Exception as e:
-                        self.send_response(500)
-                        self.end_headers()
-                        self.wfile.write(f"Error processing image: {str(e)}".encode())
-                    #finally:
-                        # Clean up temporary file
-                        # os.remove(filename)
-                    perform_image_counting()
-                    return
+                # Send response
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success", "message": "good"}).encode())
 
-            # If no image part is found, return an error
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write(b"No valid image file found.")
-        else:
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write(b"Unsupported content type.")
+            except json.JSONDecodeError:
+                # Handle invalid JSON
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": "Invalid JSON data"}).encode())
+
+        if self.path == '/':
+            # Check if it's a multipart form data request
+            if content_type.startswith("multipart/form-data"):
+                # Parse multipart data
+                boundary = content_type.split("boundary=")[1].encode()
+                content_length = int(self.headers['Content-Length'])
+                body = self.rfile.read(content_length)
+
+                # Use BytesParser to extract file content
+                parts = BytesParser(policy=default).parsebytes(
+                    b"Content-Type: " + content_type.encode() + b"\r\n\r\n" + body
+                )
+
+                # Find the file part
+                for part in parts.iter_parts():
+                    if part.get_content_type().startswith("image/"):
+                        # Save uploaded image temporarily
+                        filename = f"{os.path.join(root, 'images', str(img_count))}.bmp"
+                        with open(filename, "wb") as file:
+                            file.write(part.get_payload(decode=True))
+
+                        # Process the image with YOLO
+                        try:
+                            grouped_detections = self.process_image(filename)
+                            group_names = []
+                            csvfile = os.path.join(root, 'data.csv')
+                            with open(csvfile,'r') as csvfile:
+                                data = csv.reader(csvfile, delimiter=',')
+                                next(data)
+
+                                for row in data:
+                                    group_names.append(row[1])
+
+                            response_data = {
+                                "detections": grouped_detections,
+                                "groups": group_names
+                            }
+
+                            self.send_response(200)
+                            self.end_headers()
+                            self.wfile.write(json.dumps(response_data).encode())
+                            with open(filename.replace(".bmp", ".json"), "w") as file:
+                                json.dump(grouped_detections, file)
+                        except Exception as e:
+                            self.send_response(500)
+                            self.end_headers()
+                            self.wfile.write(f"Error processing image: {str(e)}".encode())
+                        #finally:
+                            # Clean up temporary file
+                            # os.remove(filename)
+                        perform_image_counting()
+                        return
+
+                # If no image part is found, return an error
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(b"No valid image file found.")
+            else:
+                # Unsupported content type
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(b"Unsupported content type.")
 
     def do_GET(self):
         self.send_response(200)
@@ -128,6 +166,7 @@ def get_device_ip():
     finally:
         s.close()
     return ip
+
 
 def run_server(port=8080):
     ip = get_device_ip()
