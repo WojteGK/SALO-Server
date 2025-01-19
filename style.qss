@@ -1,0 +1,262 @@
+/* General Settings */
+QWidget {
+    background-color: #121212; /* Black background */
+    color: #FFFFFF; /* White text */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 12pt;
+}
+
+/* Label */
+QLabel {
+    color: #FFFFFF;
+    font-size: 12pt;
+}
+
+/* Line Edit */
+QLineEdit {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB; /* Purple border */
+    border-radius: 5px;
+    padding: 5px;
+    color: #FFFFFF;
+}
+
+QLineEdit:focus {
+    border: 2px solid #9573DB; /* Lighter purple on focus */
+}
+
+/* Text Edit */
+QTextEdit {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+    padding: 5px;
+    color: #FFFFFF;
+}
+
+QTextEdit:focus {
+    border: 2px solid #9573DB;
+}
+
+/* CheckBox */
+QCheckBox {
+    spacing: 8px;
+    color: #FFFFFF;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    background: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 4px;
+}
+
+QCheckBox::indicator:checked {
+    background: #5C4BDB;
+    border: 2px solid #9573DB;
+}
+
+/* Radio Button */
+QRadioButton {
+    spacing: 8px;
+    color: #FFFFFF;
+}
+
+QRadioButton::indicator {
+    width: 18px;
+    height: 18px;
+    background: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 9px;
+}
+
+QRadioButton::indicator:checked {
+    background: #5C4BDB;
+    border: 2px solid #9573DB;
+}
+
+/* Tab Control */
+QTabWidget::pane {
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+}
+
+QTabBar::tab {
+    background: #1E1E1E;
+    border: 1px solid #5C4BDB;
+    padding: 8px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #FFFFFF;
+    min-width: 100px;
+    text-align: center;
+}
+
+QTabBar::tab:selected {
+    background: #5C4BDB;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+QTabBar::tab:hover {
+    background: #9573DB;
+    color: #FFFFFF;
+}
+
+/* QGraphicsView */
+QGraphicsView {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+}
+
+/* Tree View */
+QTreeView {
+    background-color: #1E1E1E;
+    border: 2px solid #5C4BDB;
+    border-radius: 5px;
+    color: #FFFFFF;
+    padding: 5px;
+}
+
+QTreeView::item {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+    border: none;
+    padding: 5px;
+}
+
+QTreeView::item:hover {
+    background-color: #5C4BDB;
+    color: #FFFFFF;
+}
+
+QTreeView::item:selected {
+    background-color: #9573DB;
+    color: #FFFFFF;
+}
+
+/* Scroll Bars */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background: #1E1E1E;
+    width: 8px;
+    height: 8px;
+    margin: 0px;
+    border: 1px solid #5C4BDB;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background: #5C4BDB;
+    border: none;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {
+    background: #9573DB;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    background: none;
+    border: none;
+    width: 0px;
+    height: 0px;
+}
+
+/* QPushButton */
+QPushButton {
+    background-color: #5C4BDB; /* Purple background */
+    color: #FFFFFF; /* White text */
+    border: 2px solid #5C4BDB; /* Match the background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 8px 15px;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+QPushButton:hover {
+    background-color: #9573DB; /* Lighter purple on hover */
+    border: 2px solid #9573DB;
+    color: #FFFFFF;
+}
+
+QPushButton:pressed {
+    background-color: #4A3B9C; /* Darker purple on press */
+    border: 2px solid #4A3B9C;
+    color: #FFFFFF;
+}
+
+QPushButton:disabled {
+    background-color: #1E1E1E; /* Greyed out for disabled state */
+    border: 2px solid #5C4BDB; /* Slight purple outline to maintain theme */
+    color: #6C6C6C; /* Faded text color */
+}
+
+/* QListWidget */
+QListWidget {
+    background-color: #1E1E1E; /* Dark background */
+    border: 2px solid #5C4BDB; /* Purple border */
+    border-radius: 5px; /* Rounded corners */
+    color: #FFFFFF; /* White text */
+    font-size: 12pt; /* Match font size */
+    padding: 5px; /* Inner padding for items */
+}
+
+/* QListWidget Item */
+QListWidget::item {
+    background-color: #1E1E1E; /* Same as background */
+    color: #FFFFFF; /* White text */
+    border: none; /* No border for default state */
+    padding: 5px; /* Padding for individual items */
+    margin: 2px; /* Small margin between items */
+    border-radius: 3px; /* Slightly rounded item corners */
+}
+
+/* Hover effect for items */
+QListWidget::item:hover {
+    background-color: #5C4BDB; /* Purple highlight */
+    color: #FFFFFF; /* White text */
+}
+
+/* Selected item style */
+QListWidget::item:selected {
+    background-color: #9573DB; /* Lighter purple for selected */
+    color: #FFFFFF; /* White text */
+    font-weight: bold; /* Make selected items bold */
+    border: 1px solid #9573DB; /* Subtle border for selected item */
+}
+
+/* Focus outline */
+QListWidget:focus {
+    border: 2px solid #9573DB; /* Lighter purple on focus */
+}
+
+/* QGroupBox */
+QGroupBox {
+    background-color: #1E1E1E; /* Dark background */
+    border: 2px solid #5C4BDB; /* Purple border */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: 15px; /* Space for the title */
+    color: #FFFFFF; /* White text */
+    font-size: 12pt; /* Match font size */
+    font-weight: bold; /* Bold title text */
+    padding: 10px; /* Padding inside the group box */
+}
+
+/* Title position and styling */
+QGroupBox:title {
+    subcontrol-origin: margin; /* Position the title in the margin */
+    subcontrol-position: top center; /* Center the title at the top */
+    padding: 0 5px; /* Add a little padding around the title */
+    background-color: #121212; /* Background matches the main window */
+    color: #FFFFFF; /* White text */
+    font-size: 12pt; /* Match font size */
+    font-weight: bold; /* Bold title text */
+}
+
+/* GroupBox focus */
+QGroupBox:focus {
+    border: 2px solid #9573DB; /* Lighter purple border on focus */
+}

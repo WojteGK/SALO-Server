@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow
 from GUI import Ui_MainWindow
 import subprocess
+from datetime import datetime
 
 class MainWindowExtended(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -10,6 +11,11 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
         self.server_process = None
         self.pushButtonRunServer.clicked.connect(self.run_server)
         self.pushButtonStopServer.clicked.connect(self.stop_server)
+
+        try:
+            self.setStyleSheet(open("style.qss", "r").read())
+        except:
+            pass
 
     def run_server(self):
         """
@@ -23,7 +29,7 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
                 text=True
             )
             self.labelServerStatus.setText("Server: ON")
-            self.textEditServerLog.append("Server started...\n")
+            self.textEditServerLog.append(f"Server started at {str(datetime.now())}\n")
 
     def stop_server(self):
         """
@@ -34,4 +40,4 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
             self.server_process.wait()
             self.server_process = None
             self.labelServerStatus.setText("Server: OFF")
-            self.textEditServerLog.append("Server stopped...\n")
+            self.textEditServerLog.append(f"Server stopped at {str(datetime.now())}\n")

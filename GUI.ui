@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1671</width>
+    <width>1052</width>
     <height>892</height>
    </rect>
   </property>
@@ -212,6 +212,73 @@ QPushButton:disabled {
     background-color: #1E1E1E; /* Greyed out for disabled state */
     border: 2px solid #5C4BDB; /* Slight purple outline to maintain theme */
     color: #6C6C6C; /* Faded text color */
+}
+
+/* QListWidget */
+QListWidget {
+    background-color: #1E1E1E; /* Dark background */
+    border: 2px solid #5C4BDB; /* Purple border */
+    border-radius: 5px; /* Rounded corners */
+    color: #FFFFFF; /* White text */
+    font-size: 12pt; /* Match font size */
+    padding: 5px; /* Inner padding for items */
+}
+
+/* QListWidget Item */
+QListWidget::item {
+    background-color: #1E1E1E; /* Same as background */
+    color: #FFFFFF; /* White text */
+    border: none; /* No border for default state */
+    padding: 5px; /* Padding for individual items */
+    margin: 2px; /* Small margin between items */
+    border-radius: 3px; /* Slightly rounded item corners */
+}
+
+/* Hover effect for items */
+QListWidget::item:hover {
+    background-color: #5C4BDB; /* Purple highlight */
+    color: #FFFFFF; /* White text */
+}
+
+/* Selected item style */
+QListWidget::item:selected {
+    background-color: #9573DB; /* Lighter purple for selected */
+    color: #FFFFFF; /* White text */
+    font-weight: bold; /* Make selected items bold */
+    border: 1px solid #9573DB; /* Subtle border for selected item */
+}
+
+/* Focus outline */
+QListWidget:focus {
+    border: 2px solid #9573DB; /* Lighter purple on focus */
+}
+
+/* QGroupBox */
+QGroupBox {
+    background-color: #1E1E1E; /* Dark background */
+    border: 2px solid #5C4BDB; /* Purple border */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: 15px; /* Space for the title */
+    color: #FFFFFF; /* White text */
+    font-size: 12pt; /* Match font size */
+    font-weight: bold; /* Bold title text */
+    padding: 10px; /* Padding inside the group box */
+}
+
+/* Title position and styling */
+QGroupBox:title {
+    subcontrol-origin: margin; /* Position the title in the margin */
+    subcontrol-position: top center; /* Center the title at the top */
+    padding: 0 5px; /* Add a little padding around the title */
+    background-color: #121212; /* Background matches the main window */
+    color: #FFFFFF; /* White text */
+    font-size: 12pt; /* Match font size */
+    font-weight: bold; /* Bold title text */
+}
+
+/* GroupBox focus */
+QGroupBox:focus {
+    border: 2px solid #9573DB; /* Lighter purple border on focus */
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -220,7 +287,7 @@ QPushButton:disabled {
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1651</width>
+      <width>1031</width>
       <height>821</height>
      </rect>
     </property>
@@ -234,7 +301,7 @@ QPushButton:disabled {
      <widget class="QPushButton" name="pushButtonStopServer">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>910</x>
         <y>10</y>
         <width>101</width>
         <height>41</height>
@@ -247,10 +314,10 @@ QPushButton:disabled {
      <widget class="QLabel" name="labelServerStatus">
       <property name="geometry">
        <rect>
-        <x>18</x>
+        <x>678</x>
         <y>12</y>
         <width>91</width>
-        <height>31</height>
+        <height>41</height>
        </rect>
       </property>
       <property name="text">
@@ -260,9 +327,9 @@ QPushButton:disabled {
      <widget class="QTextEdit" name="textEditServerLog">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>67</y>
-        <width>1621</width>
+        <x>670</x>
+        <y>70</y>
+        <width>341</width>
         <height>691</height>
        </rect>
       </property>
@@ -270,7 +337,7 @@ QPushButton:disabled {
      <widget class="QPushButton" name="pushButtonRunServer">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>790</x>
         <y>10</y>
         <width>101</width>
         <height>41</height>
@@ -280,16 +347,180 @@ QPushButton:disabled {
        <string>RUN</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tabModelTraining">
-     <attribute name="title">
-      <string>Model Training</string>
-     </attribute>
+     <widget class="QListWidget" name="listWidgetConfigList">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>311</width>
+        <height>691</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelStatic">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>311</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Available launch configurations</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelStatic_2">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>20</y>
+        <width>301</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add new launch configuration</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBoxName">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>70</y>
+        <width>311</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Set configuration name</string>
+      </property>
+      <widget class="QLineEdit" name="lineEditConfigName">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>41</y>
+         <width>291</width>
+         <height>41</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="pushButtonAddConfiguration">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>720</y>
+        <width>311</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ADD CONFIGURATION</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidgetGroupList">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>240</y>
+        <width>311</width>
+        <height>351</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelStatic_3">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>190</y>
+        <width>311</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Groups</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditGroupName">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>600</y>
+        <width>201</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Enter a group name</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButtonAddGroup">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>600</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ADD</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButtonRemoveGroup">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>660</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remove</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tabStatistics">
      <attribute name="title">
       <string>Statistics</string>
      </attribute>
+     <widget class="QLabel" name="labelStatisticsProjectName">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1011</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Current project name</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widgetPLTChart" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>1011</width>
+        <height>711</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -298,7 +529,7 @@ QPushButton:disabled {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1671</width>
+     <width>1052</width>
      <height>27</height>
     </rect>
    </property>
