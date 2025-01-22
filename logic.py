@@ -6,6 +6,7 @@ from datetime import datetime
 import os
 import shutil
 import pandas as pd
+import socket
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -52,6 +53,7 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
                     text=True
                 )
                 self.labelServerStatus.setText("Server: ON")
+                self.textEditServerLog.append(f"Server started on {get_device_ip()}")
                 self.textEditServerLog.append(f"Server started at {str(datetime.now())}\n")
 
         except Exception as e:
@@ -186,3 +188,16 @@ def sanitize_filename(filename):
         filename += "_safe"
 
     return filename
+
+def get_device_ip():
+    """
+    Get the current device's IP address in the network.
+    """
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # Connect to an external address; doesn't have to be reachable
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
