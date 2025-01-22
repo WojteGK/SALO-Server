@@ -141,36 +141,28 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
             data = pd.read_csv(os.path.join("configs", self.current_config, 'cache', target))
             self.canvas.plot_barchart(data['alias'], data['count'])
 
+
 class MplCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = fig.add_subplot(111)
+        # Either call it self.ax
+        self.ax = fig.add_subplot(111)
         super().__init__(fig)
 
-        # Make the canvas expand/shrink to fill the available space
+        # Size policy, etc.
         self.setSizePolicy(
             QSizePolicy.Policy.Expanding,
             QSizePolicy.Policy.Expanding
         )
-        # Inform the layout system that the size may have changed
         self.updateGeometry()
 
     def plot_barchart(self, categories, values):
-        """
-        A helper method to create/update a bar chart on this canvas.
-        """
-        # Clear any existing drawing on the Axes
-        self.ax.clear()
-
-        # Plot a vertical bar chart
+        self.ax.clear()  # (Now it matches the above)
         self.ax.bar(categories, values, width=0.6, color='skyblue', edgecolor='black')
-
-        # Set labels/titles if desired
         self.ax.set_xlabel("Categories")
         self.ax.set_ylabel("Values")
-        self.ax.set_title("Bar Chart Example")
+        self.ax.set_title("Statistics")
 
-        # Redraw the canvas
         self.draw()
 
 
