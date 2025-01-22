@@ -1,10 +1,14 @@
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtCore import QTimer
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QSizePolicy
 from GUI import Ui_MainWindow
 import subprocess
 from datetime import datetime
 import os
 import shutil
 import pandas as pd
+
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 class MainWindowExtended(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -18,6 +22,15 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
         self.pushButtonAddGroup.clicked.connect(self.add_group)
         self.pushButtonRemoveGroup.clicked.connect(self.remove_group)
         self.pushButtonAddConfiguration.clicked.connect(self.add_configuration)
+
+        self.layout = QVBoxLayout(self.widgetPLTChart)
+        self.canvas = MplCanvas(self.widgetPLTChart, width=5, height=4, dpi=100)
+        self.layout.addWidget(self.canvas)
+        self.plot_timer = QTimer()
+        self.plot_timer.timeout.connect(self.refresh_chart)
+        self.plot_timer.start(1000)
+
+        self.current_config = None
 
         try:
             self.setStyleSheet(open("style.qss", "r").read())
@@ -109,7 +122,50 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
 
                 os.makedirs(os.path.join("configs", config_name, "images"))
 
+                self.currrent_config = config_name
+
                 self.list_server_configs()
+
+    def refresh_chart(self):
+        """
+        Refresh the chart.
+        """
+        if self.current_config is not None:
+            target = str(max([int(f.strip('.csv')) for f in os.listdir(os.path.join("configs", self.current_config, 'cache'))])) + '.csv'
+            data = pd.read_csv(os.path.join("configs", self.current_config, 'cache', target))
+            self.canvas.plot_barchart(data['alias'], data['count'])
+
+class MplCanvas(FigureCanvas):
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot(111)
+        super().__init__(fig)
+
+        # Make the canvas expand/shrink to fill the available space
+        self.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Expanding
+        )
+        # Inform the layout system that the size may have changed
+        self.updateGeometry()
+
+    def plot_barchart(self, categories, values):
+        """
+        A helper method to create/update a bar chart on this canvas.
+        """
+        # Clear any existing drawing on the Axes
+        self.ax.clear()
+
+        # Plot a vertical bar chart
+        self.ax.bar(categories, values, width=0.6, color='skyblue', edgecolor='black')
+
+        # Set labels/titles if desired
+        self.ax.set_xlabel("Categories")
+        self.ax.set_ylabel("Values")
+        self.ax.set_title("Bar Chart Example")
+
+        # Redraw the canvas
+        self.draw()
 
 
 def sanitize_filename(filename):
