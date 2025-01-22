@@ -108,6 +108,8 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
 
                 os.makedirs(os.path.join("configs", config_name, "images"))
 
+                self.list_server_configs()
+
 def sanitize_filename(filename):
     # List of characters to remove or replace
     invalid_chars = r'\/:*?"<>|'
