@@ -23,6 +23,7 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
         self.pushButtonAddGroup.clicked.connect(self.add_group)
         self.pushButtonRemoveGroup.clicked.connect(self.remove_group)
         self.pushButtonAddConfiguration.clicked.connect(self.add_configuration)
+        self.listWidgetConfigList.itemClicked.connect(self.refresh_current_config)
 
         self.layout = QVBoxLayout(self.widgetPLTChart)
         self.canvas = MplCanvas(self.widgetPLTChart, width=5, height=4, dpi=100)
@@ -127,6 +128,9 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
                 self.currrent_config = config_name
 
                 self.list_server_configs()
+
+    def refresh_current_config(self):
+        self.current_config = self.listWidgetConfigList.currentItem().text()
 
     def refresh_chart(self):
         """
