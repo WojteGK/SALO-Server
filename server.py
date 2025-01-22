@@ -80,7 +80,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
                             response_data = {
                                 "detections": grouped_detections,
-                                "groups": group_names
+                                "groups": group_names,
+                                "id": filename
                             }
 
                             self.send_response(200)
