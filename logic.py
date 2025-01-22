@@ -33,13 +33,14 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
         try:
             if self.server_process is None:
                 self.server_process = subprocess.Popen(
-                    [os.path.join('.venv', 'Scripts', 'python.exe'), "server.py", f"--path {os.path.join(os.getcwd(), 'configs', self.listWidgetConfigList.currentItem().text())}"],
+                    [os.path.join(os.getcwd(),'.venv', 'Scripts', 'python.exe'), "server.py", f"--path", f"{os.path.join(os.getcwd(), 'configs', self.listWidgetConfigList.currentItem().text())}"],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     text=True
                 )
                 self.labelServerStatus.setText("Server: ON")
                 self.textEditServerLog.append(f"Server started at {str(datetime.now())}\n")
+
         except Exception as e:
             self.textEditServerLog.append(f"Error starting server: {str(e)}\n")
 
@@ -109,6 +110,7 @@ class MainWindowExtended(QMainWindow, Ui_MainWindow):
                 os.makedirs(os.path.join("configs", config_name, "images"))
 
                 self.list_server_configs()
+
 
 def sanitize_filename(filename):
     # List of characters to remove or replace
