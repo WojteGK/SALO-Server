@@ -32,6 +32,17 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                 # Parse JSON data
                 data = json.loads(body)
 
+                id = data['id'].strip('.bmp')
+
+                groupped_detections = json.loads(open(f"{os.path.join(root, 'images', id)}.json").read())
+                groupped_counts = {}
+                for key, value in groupped_detections.items():
+                    groupped_counts[key] = len(value)
+
+                for key, value in data.items():
+                    if key != 'id':
+                        df.loc[df['alias'] == value, ['count']] += groupped_counts[int(key)]
+
                 print(data)
 
                 # Send response
