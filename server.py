@@ -6,6 +6,7 @@ from email.parser import BytesParser
 from email.policy import default
 import urllib.parse
 import json
+from copy import deepcopy
 
 from object_detector import detect_objects
 from feature_extractor import load_feature_extractor, get_embedding
@@ -89,10 +90,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                                 for row in data:
                                     group_names.append(row[1])
 
+                            just_file_id = filename.split(os.linesep)[-1]
+
                             response_data = {
                                 "detections": grouped_detections,
                                 "groups": group_names,
-                                "id": filename
+                                "id": just_file_id
                             }
 
                             self.send_response(200)
