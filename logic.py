@@ -160,7 +160,7 @@ class MplCanvas(FigureCanvas):
         self.ax.clear()  # (Now it matches the above)
         self.ax.bar(categories, values, width=0.6, color='skyblue', edgecolor='black')
         self.ax.set_xlabel("Categories")
-        self.ax.set_ylabel("Values")
+        self.ax.set_ylabel("Quantity")
         self.ax.set_title("Statistics")
 
         self.draw()
