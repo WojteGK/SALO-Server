@@ -47,6 +47,10 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                         df.loc[df['alias'] == value, 'count'] += groupped_counts[str(key)]
 
                 df.to_csv(os.path.join(root, "data.csv"), index=False)
+                if not os.path.exists(os.path.join(root, 'cache')):
+                    os.makedirs(os.path.join(root, 'cache'))
+                counter = len(os.listdir(os.path.join(root, 'cache')))
+                df.to_csv(os.path.join(root, 'cache', f'{counter}.csv'), index=False)
 
                 # Send response
                 self.send_response(200)
