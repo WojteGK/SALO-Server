@@ -32,7 +32,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             try:
                 # Parse JSON data
                 data = json.loads(body)
-
+                data = json.loads(data)
+                print(data)
+                print(type(data))
                 id = data['id'].strip('.bmp')
 
                 groupped_detections = json.loads(open(f"{os.path.join(root, 'images', id)}.json").read())
@@ -40,11 +42,11 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                 for key, value in groupped_detections.items():
                     groupped_counts[key] = len(value)
 
-                for key, value in data.items():
+                for key, value in data['assignments'].items():
                     if key != 'id':
-                        df.loc[df['alias'] == value, ['count']] += groupped_counts[int(key)]
+                        df.loc[df['alias'] == value, 'count'] += groupped_counts[str(key)]
 
-                print(data)
+                df.to_csv(os.path.join(root, "data.csv"), index=False)
 
                 # Send response
                 self.send_response(200)
