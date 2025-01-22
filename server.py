@@ -90,7 +90,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                                 for row in data:
                                     group_names.append(row[1])
 
-                            just_file_id = filename.split(os.linesep)[-1]
+                            just_file_id = os.path.basename(filename)
 
                             response_data = {
                                 "detections": grouped_detections,
