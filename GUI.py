@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1671, 892)
+        MainWindow.resize(1052, 892)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -210,36 +210,143 @@ class Ui_MainWindow(object):
 "    background-color: #1E1E1E; /* Greyed out for disabled state */\n"
 "    border: 2px solid #5C4BDB; /* Slight purple outline to maintain theme */\n"
 "    color: #6C6C6C; /* Faded text color */\n"
+"}\n"
+"\n"
+"/* QListWidget */\n"
+"QListWidget {\n"
+"    background-color: #1E1E1E; /* Dark background */\n"
+"    border: 2px solid #5C4BDB; /* Purple border */\n"
+"    border-radius: 5px; /* Rounded corners */\n"
+"    color: #FFFFFF; /* White text */\n"
+"    font-size: 12pt; /* Match font size */\n"
+"    padding: 5px; /* Inner padding for items */\n"
+"}\n"
+"\n"
+"/* QListWidget Item */\n"
+"QListWidget::item {\n"
+"    background-color: #1E1E1E; /* Same as background */\n"
+"    color: #FFFFFF; /* White text */\n"
+"    border: none; /* No border for default state */\n"
+"    padding: 5px; /* Padding for individual items */\n"
+"    margin: 2px; /* Small margin between items */\n"
+"    border-radius: 3px; /* Slightly rounded item corners */\n"
+"}\n"
+"\n"
+"/* Hover effect for items */\n"
+"QListWidget::item:hover {\n"
+"    background-color: #5C4BDB; /* Purple highlight */\n"
+"    color: #FFFFFF; /* White text */\n"
+"}\n"
+"\n"
+"/* Selected item style */\n"
+"QListWidget::item:selected {\n"
+"    background-color: #9573DB; /* Lighter purple for selected */\n"
+"    color: #FFFFFF; /* White text */\n"
+"    font-weight: bold; /* Make selected items bold */\n"
+"    border: 1px solid #9573DB; /* Subtle border for selected item */\n"
+"}\n"
+"\n"
+"/* Focus outline */\n"
+"QListWidget:focus {\n"
+"    border: 2px solid #9573DB; /* Lighter purple on focus */\n"
+"}\n"
+"\n"
+"/* QGroupBox */\n"
+"QGroupBox {\n"
+"    background-color: #1E1E1E; /* Dark background */\n"
+"    border: 2px solid #5C4BDB; /* Purple border */\n"
+"    border-radius: 5px; /* Rounded corners */\n"
+"    margin-top: 15px; /* Space for the title */\n"
+"    color: #FFFFFF; /* White text */\n"
+"    font-size: 12pt; /* Match font size */\n"
+"    font-weight: bold; /* Bold title text */\n"
+"    padding: 10px; /* Padding inside the group box */\n"
+"}\n"
+"\n"
+"/* Title position and styling */\n"
+"QGroupBox:title {\n"
+"    subcontrol-origin: margin; /* Position the title in the margin */\n"
+"    subcontrol-position: top center; /* Center the title at the top */\n"
+"    padding: 0 5px; /* Add a little padding around the title */\n"
+"    background-color: #121212; /* Background matches the main window */\n"
+"    color: #FFFFFF; /* White text */\n"
+"    font-size: 12pt; /* Match font size */\n"
+"    font-weight: bold; /* Bold title text */\n"
+"}\n"
+"\n"
+"/* GroupBox focus */\n"
+"QGroupBox:focus {\n"
+"    border: 2px solid #9573DB; /* Lighter purple border on focus */\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget = QtWidgets.QTabWidget(parent=self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(10, 10, 1651, 821))
+        self.tabWidget.setGeometry(QtCore.QRect(10, 10, 1031, 821))
         self.tabWidget.setObjectName("tabWidget")
         self.tabServer = QtWidgets.QWidget()
         self.tabServer.setObjectName("tabServer")
         self.pushButtonStopServer = QtWidgets.QPushButton(parent=self.tabServer)
-        self.pushButtonStopServer.setGeometry(QtCore.QRect(250, 10, 101, 41))
+        self.pushButtonStopServer.setGeometry(QtCore.QRect(910, 10, 101, 41))
         self.pushButtonStopServer.setObjectName("pushButtonStopServer")
         self.labelServerStatus = QtWidgets.QLabel(parent=self.tabServer)
-        self.labelServerStatus.setGeometry(QtCore.QRect(18, 12, 91, 31))
+        self.labelServerStatus.setGeometry(QtCore.QRect(678, 12, 91, 41))
         self.labelServerStatus.setObjectName("labelServerStatus")
         self.textEditServerLog = QtWidgets.QTextEdit(parent=self.tabServer)
-        self.textEditServerLog.setGeometry(QtCore.QRect(10, 67, 1621, 691))
+        self.textEditServerLog.setGeometry(QtCore.QRect(670, 70, 341, 691))
         self.textEditServerLog.setObjectName("textEditServerLog")
         self.pushButtonRunServer = QtWidgets.QPushButton(parent=self.tabServer)
-        self.pushButtonRunServer.setGeometry(QtCore.QRect(130, 10, 101, 41))
+        self.pushButtonRunServer.setGeometry(QtCore.QRect(790, 10, 101, 41))
         self.pushButtonRunServer.setObjectName("pushButtonRunServer")
+        self.listWidgetConfigList = QtWidgets.QListWidget(parent=self.tabServer)
+        self.listWidgetConfigList.setGeometry(QtCore.QRect(10, 70, 311, 691))
+        self.listWidgetConfigList.setObjectName("listWidgetConfigList")
+        self.labelStatic = QtWidgets.QLabel(parent=self.tabServer)
+        self.labelStatic.setGeometry(QtCore.QRect(10, 20, 311, 31))
+        self.labelStatic.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.labelStatic.setObjectName("labelStatic")
+        self.labelStatic_2 = QtWidgets.QLabel(parent=self.tabServer)
+        self.labelStatic_2.setGeometry(QtCore.QRect(350, 20, 301, 31))
+        self.labelStatic_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.labelStatic_2.setObjectName("labelStatic_2")
+        self.groupBoxName = QtWidgets.QGroupBox(parent=self.tabServer)
+        self.groupBoxName.setGeometry(QtCore.QRect(340, 70, 311, 101))
+        self.groupBoxName.setObjectName("groupBoxName")
+        self.lineEditConfigName = QtWidgets.QLineEdit(parent=self.groupBoxName)
+        self.lineEditConfigName.setGeometry(QtCore.QRect(10, 41, 291, 41))
+        self.lineEditConfigName.setObjectName("lineEditConfigName")
+        self.pushButtonAddConfiguration = QtWidgets.QPushButton(parent=self.tabServer)
+        self.pushButtonAddConfiguration.setGeometry(QtCore.QRect(340, 720, 311, 41))
+        self.pushButtonAddConfiguration.setObjectName("pushButtonAddConfiguration")
+        self.listWidgetGroupList = QtWidgets.QListWidget(parent=self.tabServer)
+        self.listWidgetGroupList.setGeometry(QtCore.QRect(340, 240, 311, 351))
+        self.listWidgetGroupList.setObjectName("listWidgetGroupList")
+        self.labelStatic_3 = QtWidgets.QLabel(parent=self.tabServer)
+        self.labelStatic_3.setGeometry(QtCore.QRect(340, 190, 311, 31))
+        self.labelStatic_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.labelStatic_3.setObjectName("labelStatic_3")
+        self.lineEditGroupName = QtWidgets.QLineEdit(parent=self.tabServer)
+        self.lineEditGroupName.setGeometry(QtCore.QRect(340, 600, 201, 41))
+        self.lineEditGroupName.setObjectName("lineEditGroupName")
+        self.pushButtonAddGroup = QtWidgets.QPushButton(parent=self.tabServer)
+        self.pushButtonAddGroup.setGeometry(QtCore.QRect(550, 600, 101, 41))
+        self.pushButtonAddGroup.setObjectName("pushButtonAddGroup")
+        self.pushButtonRemoveGroup = QtWidgets.QPushButton(parent=self.tabServer)
+        self.pushButtonRemoveGroup.setGeometry(QtCore.QRect(550, 660, 101, 41))
+        self.pushButtonRemoveGroup.setObjectName("pushButtonRemoveGroup")
         self.tabWidget.addTab(self.tabServer, "")
-        self.tabModelTraining = QtWidgets.QWidget()
-        self.tabModelTraining.setObjectName("tabModelTraining")
-        self.tabWidget.addTab(self.tabModelTraining, "")
         self.tabStatistics = QtWidgets.QWidget()
         self.tabStatistics.setObjectName("tabStatistics")
+        self.labelStatisticsProjectName = QtWidgets.QLabel(parent=self.tabStatistics)
+        self.labelStatisticsProjectName.setGeometry(QtCore.QRect(10, 10, 1011, 31))
+        self.labelStatisticsProjectName.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.labelStatisticsProjectName.setObjectName("labelStatisticsProjectName")
+        self.widgetPLTChart = QtWidgets.QWidget(parent=self.tabStatistics)
+        self.widgetPLTChart.setGeometry(QtCore.QRect(10, 60, 1011, 711))
+        self.widgetPLTChart.setObjectName("widgetPLTChart")
         self.tabWidget.addTab(self.tabStatistics, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1671, 27))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1052, 27))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
@@ -256,8 +363,16 @@ class Ui_MainWindow(object):
         self.pushButtonStopServer.setText(_translate("MainWindow", "STOP"))
         self.labelServerStatus.setText(_translate("MainWindow", "Server: OFF"))
         self.pushButtonRunServer.setText(_translate("MainWindow", "RUN"))
+        self.labelStatic.setText(_translate("MainWindow", "Available launch configurations"))
+        self.labelStatic_2.setText(_translate("MainWindow", "Add new launch configuration"))
+        self.groupBoxName.setTitle(_translate("MainWindow", "Set configuration name"))
+        self.pushButtonAddConfiguration.setText(_translate("MainWindow", "ADD CONFIGURATION"))
+        self.labelStatic_3.setText(_translate("MainWindow", "Groups"))
+        self.lineEditGroupName.setText(_translate("MainWindow", "Enter a group name"))
+        self.pushButtonAddGroup.setText(_translate("MainWindow", "ADD"))
+        self.pushButtonRemoveGroup.setText(_translate("MainWindow", "Remove"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabServer), _translate("MainWindow", "Server"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabModelTraining), _translate("MainWindow", "Model Training"))
+        self.labelStatisticsProjectName.setText(_translate("MainWindow", "Current project name"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabStatistics), _translate("MainWindow", "Statistics"))
 
 
